@@ -17,7 +17,9 @@ export class UsersController {
         }
 
         const user = await this.usersService.create(createUserDto);
+        const jwtData = await this.authService.generateToken(createUserDto.email);
         return {
+            ...jwtData,
             message: 'User created successfully',
             user: {
                 id: user._id,
